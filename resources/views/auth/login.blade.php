@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-s~le=1">
         <title>Focus - Bootstrap Admin Dashboard </title>
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
@@ -29,7 +29,7 @@
                                             @csrf
                                             <div class="form-group">
                                                 <label><strong>Email</strong></label>
-                                                <input type="email" class="form-control" value="{{ old('email') }}">
+                                                <input type="email" class="form-control" value="{{ old('email') }}" name="email">
 
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
@@ -60,13 +60,6 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    @if (Route::has('password.request'))
-                                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                            {{ __('Forgot Your Password?') }}
-                                                        </a>
-                                                    @endif
-                                                </div>
                                             </div>
                                             <div class="text-center">
                                                 <button type="submit" class="btn btn-primary btn-block">
@@ -74,10 +67,6 @@
                                                 </button>
                                             </div>
                                         </form>
-                                        <div class="new-account mt-3">
-                                            <p>Don't have an account? <a class="text-primary"
-                                                    href="{{ route('register') }}">Sign up</a></p>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

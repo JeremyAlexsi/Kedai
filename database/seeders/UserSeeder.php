@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -14,11 +15,10 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::truncate();
-        User::created([
+        User::create([
             'name' => 'Jeremy',
             'email' => 'jeremy@gmail.com',
-            'password' => bcrypt('123'),
-            'remember_token' => Str::random(60)
+            'password' => Hash::make('123'),
         ]);
     }
 }

@@ -46,9 +46,15 @@ let dataSet = [
     var table = $('#example').DataTable({
         createdRow: function ( row, data, index ) {
            $(row).addClass('selected')
-        } 
+        }
     });
-      
+
+    var table = $('#example2').DataTable({
+        createdRow: function ( row, data, index ) {
+           $(row).addClass('selected')
+        }
+    });
+
     table.on('click', 'tbody tr', function() {
     var $row = table.row(this).nodes().to$();
     var hasClass = $row.hasClass('selected');
@@ -58,7 +64,7 @@ let dataSet = [
         $row.addClass('selected')
     }
     })
-    
+
     table.rows().every(function() {
     this.nodes().to$().removeClass('selected')
     });
@@ -66,7 +72,7 @@ let dataSet = [
 
 
     //example 2
-    var table2 = $('#example2').DataTable( {
+    var table2 = $('#example3').DataTable( {
         createdRow: function ( row, data, index ) {
             $(row).addClass('selected')
         },
@@ -85,9 +91,9 @@ let dataSet = [
             $row.addClass('selected')
         }
     })
-        
+
     table2.rows().every(function() {
         this.nodes().to$().removeClass('selected')
     });
-   
+
 })(jQuery);

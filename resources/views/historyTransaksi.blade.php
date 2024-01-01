@@ -9,7 +9,7 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h2>Barang</h2>
+                        <h2>Transaksi</h2>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h2>Barang Masuk</h2>
+                            <h2>History</h2>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -28,21 +28,23 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Barang</th>
-                                            <th>Jenis Barang</th>
                                             <th>Quantity</th>
-                                            <th>Tanggal Masuk</th>
+                                            <th>Total Belanja</th>
+                                            <th>Bayar</th>
+                                            <th>Kembalian</th>
+                                            <th>Tanggal Transaksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $no = 1; ?>
-                                        @foreach ($barang_masuk as $d)
+                                        @foreach ($transaksi as $t)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
-                                                <td>{{ $d->nama_barang }}</td>
-                                                <td>{{ $d->jenis_barang }}</td>
-                                                <td>{{ $d->quantity }}</td>
-                                                <td>{{ $d->tanggal_masuk }}</td>
+                                                <td>{{ $t->quantity }}</td>
+                                                <td>{{ $t->total }}</td>
+                                                <td>{{ $t->bayar }}</td>
+                                                <td>{{ $t->kembalian }}</td>
+                                                <td>{{ $t->tanggal_transaksi }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -50,10 +52,11 @@
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Barang</th>
-                                            <th>Jenis Barang</th>
                                             <th>Quantity</th>
-                                            <th>Tanggal Masuk</th>
+                                            <th>Total Belanja</th>
+                                            <th>Bayar</th>
+                                            <th>Kembalian</th>
+                                            <th>Tanggal Transaksi</th>
                                         </tr>
                                     </tfoot>
                                 </table>

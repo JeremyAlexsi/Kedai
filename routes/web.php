@@ -1,10 +1,15 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangKeluarController;
+use App\Http\Controllers\BarangMasukController;
+use App\Http\Controllers\TransaksiController;
+use App\Models\BarangMasuk;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,17 +27,34 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 
 Route::get('/', function () {
-    return view('dashboard');
+    return view('auth/login');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard/chart', [DashboardController::class, 'chart'])->name('chart');
+Route::get('/dashboard/chartTransaksi', [DashboardController::class, 'chartTransaksi'])->name('chartTransaksi');
 
-Route::get('/masuk', [BarangController::class, 'masuk'])->name('masuk');
-Route::get('/keluar', [BarangController::class, 'keluar'])->name('keluar');
+Route::get('/list', [BarangController::class, 'index'])->name('list');
+
+Route::post('/list/store', [BarangController::class, 'store'])->name('store');
+Route::post('/list/update/{id}', [BarangController::class, 'update'])->name('update');
+Route::post('/list/tambah/{id}', [BarangController::class, 'tambah'])->name('tambah');
+Route::post('/list/kurang/{id}', [BarangController::class, 'kurang'])->name('kurang');
+Route::post('/list/hapus/{id}', [BarangController::class, 'hapus'])->name('hapus');
+
+Route::get('/masuk', [BarangMasukController::class, 'index'])->name('masuk');
+Route::get('/keluar', [BarangKeluarController::class, 'index'])->name('keluar');
+Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
+Route::post('/transaksi/keranjang', [TransaksiController::class, 'keranjang'])->name('keranjang');
+Route::post('/transaksi/simpan', [TransaksiController::class, 'simpan'])->name('simpan');
+Route::get('/history', [TransaksiController::class, 'history'])->name('history');
+Route::get('/transaksi/hapus/{id}', [TransaksiController::class, 'hapus'])->name('transaksi.hapus');
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register/create', [RegisterController::class, 'create'])->name('register.create');

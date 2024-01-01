@@ -64,8 +64,8 @@ class TransaksiController extends Controller
                 $keranjang->save(); // Simpan data ke dalam database
             }
             $i++;
-            return redirect()->back()->with('keranjang', 'Berhasil masuk keranjang');
         }
+        return redirect()->back()->with('keranjang', 'Berhasil masuk keranjang');
 
         // Setelah data disimpan, Anda bisa melakukan redirect atau tindakan lainnya
     }

@@ -38,12 +38,16 @@ Route::get('/list', [BarangController::class, 'index'])->name('list');
 
 Route::post('/list/store', [BarangController::class, 'store'])->name('store');
 Route::post('/list/update/{id}', [BarangController::class, 'update'])->name('update');
-Route::post('/list/tambah/{id}', [BarangController::class, 'tambah'])->name('tambah');
-Route::post('/list/kurang/{id}', [BarangController::class, 'kurang'])->name('kurang');
 Route::post('/list/hapus/{id}', [BarangController::class, 'hapus'])->name('hapus');
 
 Route::get('/masuk', [BarangMasukController::class, 'index'])->name('masuk');
+Route::post('/tambah', [BarangMasukController::class, 'tambah'])->name('tambah');
+Route::get('/historyMasuk', [BarangMasukController::class, 'history'])->name('historyMasuk');
+
 Route::get('/keluar', [BarangKeluarController::class, 'index'])->name('keluar');
+Route::post('/kurang', [BarangKeluarController::class, 'kurang'])->name('kurang');
+Route::get('/historyKeluar', [BarangKeluarController::class, 'history'])->name('historyKeluar');
+
 Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
 Route::post('/transaksi/keranjang', [TransaksiController::class, 'keranjang'])->name('keranjang');
 Route::post('/transaksi/simpan', [TransaksiController::class, 'simpan'])->name('simpan');

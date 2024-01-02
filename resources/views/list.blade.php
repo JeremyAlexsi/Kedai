@@ -2,8 +2,8 @@
 
 @section('content')
     <!--**********************************
-                            Content body start
-                        ***********************************-->
+                                Content body start
+                            ***********************************-->
 
     <div class="content-body">
         <div class="container-fluid">
@@ -17,12 +17,13 @@
                 </div>
             @endif
             @if (session()->has('error'))
-            <div class="alert alert-danger solid alert-right-icon alert-dismissible fade show">
-                <span><i class="bi bi-exclamation-lg"></i></i></span>
-                <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
-                </button>
-                {{ session()->get('error') }}
-            </div>
+                <div class="alert alert-danger solid alert-right-icon alert-dismissible fade show">
+                    <span><i class="bi bi-exclamation-lg"></i></i></span>
+                    <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i
+                                class="mdi mdi-close"></i></span>
+                    </button>
+                    {{ session()->get('error') }}
+                </div>
             @endif
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
@@ -50,7 +51,7 @@
 
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="dataTable" class="display" style="min-width: 845px">
+                                <table id="dataTable" class="display text-primary" style="min-width: 845px">
                                     <thead>
                                         <tr>
                                             <th>Nama Barang</th>
@@ -79,14 +80,6 @@
                                                     <button type="button" class="btn btn-danger" data-toggle="modal"
                                                         data-target="#deleteModal{{ $d->id }}">
                                                         <i class="fa fa-trash"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                        data-target="#tambahModal{{ $d->id }}">
-                                                        <i class="fa fa-plus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                        data-target="#kurangModal{{ $d->id }}">
-                                                        <i class="fa fa-minus"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -207,10 +200,17 @@
                                 <label>Jenis Barang</label>
                                 <select id="disabledTextInput" name="jenis_barang" class="form-control">
                                     <option selected>{{ $d->jenis_barang }}</option>
-                                    <option>Minuman</option>
-                                    <option>Makanan</option>
                                     <option>Rokok</option>
-                                    <option>Kebutuhan Harian</option>
+                                    <option>Sabun</option>
+                                    <option>Shampoo</option>
+                                    <option>Susu</option>
+                                    <option>Kopi</option>
+                                    <option>Gula</option>
+                                    <option>Mie</option>
+                                    <option>Es Krim</option>
+                                    <option>Soda</option>
+                                    <option>Teh</option>
+                                    <option>Permen</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -272,107 +272,7 @@
             </div>
         </div>
     @endforeach
-    <!-- Modal Tambah Barang -->
-    @foreach ($barang as $d)
-        <div class="modal fade" id="tambahModal{{ $d->id }}" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form action="/list/tambah/{{ $d->id }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Barang</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>Nama Barang</label>
-                                <input type="text" name="nama_barang" class="form-control" id="disabledTextInput"
-                                    aria-describedby="emailHelp" placeholder="Masukkan Nama Barang"
-                                    value="{{ $d->nama_barang }}" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Jenis Barang</label>
-                                <select id="disabledTextInput" name="jenis_barang" class="form-control"
-                                    @readonly(true)>
-                                    <option selected>{{ $d->jenis_barang }}</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Tambah</label>
-                                <input type="text" class="form-control" name="tambahStock" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Masukkan Tambahan Barang">
-                            </div>
-                            <div class="form-group">
-                                <label>Harga</label>
-                                <input type="text" class="form-control" name="harga" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Masukkan Harga Barang"
-                                    value="{{ $d->harga }}" readonly>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    @endforeach
-    <!-- Modal Kurang Barang -->
-    @foreach ($barang as $d)
-        <div class="modal fade" id="kurangModal{{ $d->id }}" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form action="/list/kurang/{{ $d->id }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Kurang Barang</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>Nama Barang</label>
-                                <input type="text" name="nama_barang" class="form-control" id="disabledTextInput"
-                                    aria-describedby="emailHelp" placeholder="Masukkan Nama Barang"
-                                    value="{{ $d->nama_barang }}" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Jenis Barang</label>
-                                <select id="disabledTextInput" name="jenis_barang" class="form-control"
-                                    @readonly(true)>
-                                    <option selected>{{ $d->jenis_barang }}</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Kurang</label>
-                                <input type="text" class="form-control" name="kurangStock" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Masukkan Barang Keluar">
-                            </div>
-                            <div class="form-group">
-                                <label>Harga</label>
-                                <input type="text" class="form-control" name="harga" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Masukkan Harga Barang"
-                                    value="{{ $d->harga }}" readonly>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    @endforeach
     <!--**********************************
-                            Content body end
-                        ***********************************-->
+                                Content body end
+                            ***********************************-->
 @endsection

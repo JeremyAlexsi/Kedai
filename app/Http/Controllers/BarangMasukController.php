@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\BarangMasuk;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class BarangMasukController extends Controller
     {
         $data= array(
             'title' => 'Barang Masuk',
-            'barang_masuk' => BarangMasuk::orderBy('tanggal_masuk', 'desc')->get()
+            'history_masuk' => BarangMasuk::orderBy('tanggal_masuk', 'desc')->get(),
+            'barang_masuk' => Barang::all()
         );
         return view('masuk', $data);
         //
@@ -28,18 +30,42 @@ class BarangMasukController extends Controller
 
     }
 
+    public function tambah(Request $request)
+    {
+        foreach(Barang::all() as $b){
+            if($b = $request->nama_barang){
+                BarangMasuk::create([
+                    'nama_barang' => $request->nama_barang,
+                    'jenis_barang' => $b->jenis_barang,
+                    'quantity' => $b->tambahStock,
+                    'tanggal_masuk' => $request->tanggalMasuk
+                ]);
+            }
+        }
+
+        foreach(Barang::all() as $b){
+            if($b = $request->nama_barang){
+        $barang = Barang::find($b->id);
+
+        if ($barang) {
+            $barang->quantity += $request->tambahStock;
+            $barang->save();
+
+            return redirect()->back()->with(['success' => 'Barang Telah Ditambah']);
+        }else{
+            return redirect()->back()->with(['error' => 'Barang Gagal Ditambah']);
+        }
+        }
+        }
+
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        BarangMasuk::create([
-            'nama_barang' => $request->nama_barang,
-            'jenis_barang' => $request->jenis_barang,
-            'quantity' => $request->quantity
-        ]);
 
-        return redirect()->back();
     }
 
     /**

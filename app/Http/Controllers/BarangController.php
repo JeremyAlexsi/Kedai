@@ -78,54 +78,6 @@ class BarangController extends Controller
         }
     }
 
-    public function tambah(Request $request, $id)
-    {
-        BarangMasuk::create([
-            'nama_barang' => $request->nama_barang,
-            'jenis_barang' => $request->jenis_barang,
-            'quantity' => $request->tambahStock
-        ]);
-
-        $barang = Barang::find($id);
-
-        if ($barang) {
-            $barang->quantity += $request->tambahStock;
-            $barang->save();
-
-            return redirect()->back()->with(['success' => 'Barang Telah Ditambah']);
-        }else{
-            return redirect()->back()->with(['error' => 'Barang Gagal Ditambah']);
-        }
-
-    }
-
-    public function kurang(Request $request, $id)
-    {
-
-
-        $barang = Barang::find($id);
-
-        if ($barang) {
-            if ($barang->quantity >= $request->kurangStock && $request->kurangStock > 0) {
-                BarangKeluar::create([
-                    'nama_barang' => $request->nama_barang,
-                    'jenis_barang' => $request->jenis_barang,
-                    'quantity' => $request->kurangStock,
-                    'harga' => $request->harga
-                ]);
-                $barang->quantity -= $request->kurangStock;
-                $barang->save();
-                return redirect()->back()->with(['success' => 'Barang Telah Dikurang']);
-            } elseif ($barang->quantity < $request->kurangStock) {
-                return redirect()->back()->with(['error' => 'Pengurangan Barang Melebihi Stock']);
-            } else {
-                return redirect()->back()->with(['error' => 'Pengurangan Barang Tidak Valid']);
-            }
-        } else {
-            return redirect()->back()->with(['error' => 'Barang Tidak Ditemukan']);
-        }
-    }
-
     public function hapus($id)
     {
         $barang = Barang::find($id);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\BarangKeluar;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,10 @@ class BarangKeluarController extends Controller
      */
     public function index()
     {
-        $data= array(
+        $data = array(
             'title' => 'Barang Keluar',
-            'barang_keluar' => BarangKeluar::orderBy('tanggal_keluar', 'desc')->get()
+            'history_keluar' => BarangKeluar::orderBy('tanggal_keluar', 'desc')->get(),
+            'barang_keluar' => Barang::all()
         );
         return view('keluar', $data);
         //
@@ -28,6 +30,32 @@ class BarangKeluarController extends Controller
         //
     }
 
+    public function kurang(Request $request, $id)
+    {
+
+
+        $barang = Barang::find($id);
+
+        if ($barang) {
+            if ($barang->quantity >= $request->kurangStock && $request->kurangStock > 0) {
+                BarangKeluar::create([
+                    'nama_barang' => $request->nama_barang,
+                    'jenis_barang' => $request->jenis_barang,
+                    'quantity' => $request->kurangStock,
+                    'harga' => $request->harga
+                ]);
+                $barang->quantity -= $request->kurangStock;
+                $barang->save();
+                return redirect()->back()->with(['success' => 'Barang Telah Dikurang']);
+            } elseif ($barang->quantity < $request->kurangStock) {
+                return redirect()->back()->with(['error' => 'Pengurangan Barang Melebihi Stock']);
+            } else {
+                return redirect()->back()->with(['error' => 'Pengurangan Barang Tidak Valid']);
+            }
+        } else {
+            return redirect()->back()->with(['error' => 'Barang Tidak Ditemukan']);
+        }
+    }
     /**
      * Store a newly created resource in storage.
      */

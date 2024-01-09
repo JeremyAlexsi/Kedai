@@ -42,9 +42,14 @@
                             <div class="card-title">
                                 <h2 class="card-label">List Barang</h2>
                             </div>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                Input Barang
-                            </button>
+                            <div>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                    Input Barang
+                                </button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#jenisModal">
+                                    Input Jenis Barang
+                                </button>
+                            </div>
                         </div>
 
 
@@ -129,17 +134,9 @@
                             <label>Jenis Barang</label>
                             <select id="disabledTextInput" name="jenis_barang" class="form-control" required>
                                 <option selected>Pilih Jenis</option>
-                                <option>Rokok</option>
-                                <option>Sabun</option>
-                                <option>Shampoo</option>
-                                <option>Susu</option>
-                                <option>Kopi</option>
-                                <option>Gula</option>
-                                <option>Mie</option>
-                                <option>Es Krim</option>
-                                <option>Soda</option>
-                                <option>Teh</option>
-                                <option>Permen</option>
+                                @foreach($jenis as $j)
+                                <option>{{ $j->jenis_barang }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">
@@ -160,6 +157,35 @@
                                     <label class="custom-file-label">Choose file</label>
                                 </div>
                             </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal Input Jenis Barang -->
+    <div class="modal fade" id="jenisModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="/list/jenisInput" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Input Jenis Barang</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Jenis Barang</label>
+                            <input type="text" name="jenis_barang" class="form-control" id="disabledTextInput"
+                                aria-describedby="emailHelp" placeholder="Masukkan Jenis Barang" required>
                         </div>
 
                     </div>
@@ -200,17 +226,9 @@
                                 <label>Jenis Barang</label>
                                 <select id="disabledTextInput" name="jenis_barang" class="form-control">
                                     <option selected>{{ $d->jenis_barang }}</option>
-                                    <option>Rokok</option>
-                                    <option>Sabun</option>
-                                    <option>Shampoo</option>
-                                    <option>Susu</option>
-                                    <option>Kopi</option>
-                                    <option>Gula</option>
-                                    <option>Mie</option>
-                                    <option>Es Krim</option>
-                                    <option>Soda</option>
-                                    <option>Teh</option>
-                                    <option>Permen</option>
+                                    @foreach($jenis as $j)
+                                    <option>{{ $j->jenis_barang }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">

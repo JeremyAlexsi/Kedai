@@ -33,18 +33,18 @@ class BarangMasukController extends Controller
     public function tambah(Request $request)
     {
         foreach(Barang::all() as $b){
-            if($b = $request->nama_barang){
+            if($b->nama_barang == $request->nama_barang){
                 BarangMasuk::create([
                     'nama_barang' => $request->nama_barang,
                     'jenis_barang' => $b->jenis_barang,
-                    'quantity' => $b->tambahStock,
+                    'quantity' => $request->tambahStock,
                     'tanggal_masuk' => $request->tanggalMasuk
                 ]);
             }
         }
 
         foreach(Barang::all() as $b){
-            if($b = $request->nama_barang){
+            if($b->nama_barang == $request->nama_barang){
         $barang = Barang::find($b->id);
 
         if ($barang) {

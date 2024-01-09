@@ -30,30 +30,41 @@ class BarangKeluarController extends Controller
         //
     }
 
-    public function kurang(Request $request, $id)
+    public function kurang(Request $request)
     {
 
 
-        $barang = Barang::find($id);
-
-        if ($barang) {
-            if ($barang->quantity >= $request->kurangStock && $request->kurangStock > 0) {
+        foreach(Barang::all() as $b){
+            if($b->nama_barang == $request->nama_barang){
+                if($b->quantity >= $request->kurangStock){
                 BarangKeluar::create([
                     'nama_barang' => $request->nama_barang,
-                    'jenis_barang' => $request->jenis_barang,
+                    'jenis_barang' => $b->jenis_barang,
+                    'harga' => $b->harga,
                     'quantity' => $request->kurangStock,
-                    'harga' => $request->harga
+                    'tanggal_keluar' => $request->tanggalKeluar
                 ]);
-                $barang->quantity -= $request->kurangStock;
-                $barang->save();
-                return redirect()->back()->with(['success' => 'Barang Telah Dikurang']);
-            } elseif ($barang->quantity < $request->kurangStock) {
-                return redirect()->back()->with(['error' => 'Pengurangan Barang Melebihi Stock']);
-            } else {
-                return redirect()->back()->with(['error' => 'Pengurangan Barang Tidak Valid']);
+                }elseif ($b->quantity < $request->kurangStock) {
+                    return redirect()->back()->with(['error' => 'Pengurangan Barang Melebihi Stock']);
+                } else {
+                    return redirect()->back()->with(['error' => 'Pengurangan Barang Tidak Valid']);
+                }
             }
-        } else {
-            return redirect()->back()->with(['error' => 'Barang Tidak Ditemukan']);
+        }
+
+        foreach(Barang::all() as $b){
+            if($b->nama_barang == $request->nama_barang){
+        $barang = Barang::find($b->id);
+
+        if ($barang) {
+            $barang->quantity -= $request->kurangStock;
+            $barang->save();
+
+            return redirect()->back()->with(['success' => 'Barang Telah Dikurang']);
+        }else{
+            return redirect()->back()->with(['error' => 'Barang Gagal Dikurang']);
+        }
+        }
         }
     }
     /**

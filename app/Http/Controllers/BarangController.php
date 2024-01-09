@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\BarangKeluar;
 use App\Models\BarangMasuk;
+use App\Models\JenisBarang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -16,7 +17,8 @@ class BarangController extends Controller
     {
         $data = array(
             'title' => 'List Barang',
-            'barang' => Barang::all()
+            'barang' => Barang::all(),
+            'jenis' => JenisBarang::all()
         );
         return view('list', $data);
     }
@@ -40,6 +42,15 @@ class BarangController extends Controller
         ]);
 
         return redirect()->back()->with(['success' => 'Barang Telah Diinput']);
+    }
+
+    public function jenisInput(Request $request)
+    {
+        JenisBarang::create([
+            'jenis_barang' => $request->jenis_barang
+        ]);
+
+        return redirect()->back()->with(['success' => 'Jenis Barang Telah Diinput']);
     }
 
     public function update(Request $request, $id)

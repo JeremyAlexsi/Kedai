@@ -102,7 +102,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Nama Barang</label>
-                        <select id="disabledTextInput" name="jenis_barang" class="form-control" required>
+                        <select id="disabledTextInput" name="nama_barang" class="form-control" required>
                             @foreach($barang_masuk as $d)
                             <option>{{ $d->nama_barang }}</option>
                             @endforeach

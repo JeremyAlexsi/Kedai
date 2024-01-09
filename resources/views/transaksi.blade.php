@@ -53,7 +53,7 @@
                             </button>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
+                            <div class="table-responsive text-primary">
                                 <table id="example2" class="display" style="min-width: 845px">
                                     <thead>
                                         <tr>
@@ -151,7 +151,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive text-primary">
                             <table id="example" class="display" style="min-width: 845px">
                                 <thead>
                                     <tr>

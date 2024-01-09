@@ -91,7 +91,7 @@
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form action="/keluar/kurang" method="POST" enctype="multipart/form-data">
+                    <form action="/kurang" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Kurang Barang</h5>
@@ -102,7 +102,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>Nama Barang</label>
-                                <select id="disabledTextInput" name="jenis_barang" class="form-control" required>
+                                <select id="disabledTextInput" name="nama_barang" class="form-control" required>
                                     @foreach($barang_keluar as $d)
                                     <option>{{ $d->nama_barang }}</option>
                                     @endforeach

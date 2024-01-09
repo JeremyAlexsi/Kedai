@@ -37,6 +37,7 @@ Route::get('/dashboard/chartTransaksi', [DashboardController::class, 'chartTrans
 Route::get('/list', [BarangController::class, 'index'])->name('list');
 
 Route::post('/list/store', [BarangController::class, 'store'])->name('store');
+Route::post('/list/jenisInput', [BarangController::class, 'jenisInput'])->name('jenis');
 Route::post('/list/update/{id}', [BarangController::class, 'update'])->name('update');
 Route::post('/list/hapus/{id}', [BarangController::class, 'hapus'])->name('hapus');
 
